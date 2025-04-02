@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Gifting Assistant - Find Perfect Gifts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #4d44db;
+            --accent-color: #ff6584;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+            opacity: 0.3;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-input {
+            border: none;
+            outline: none;
+            width: 70%;
+            padding: 12px 20px;
+            border-radius: 50px 0 0 50px;
+        }
+        
+        .search-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #e04f6d;
+            transform: translateY(-2px);
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .gift-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            margin-bottom: 30px;
+            height: 100%;
+        }
+        
+        .gift-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gift-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .gift-price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .buy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .buy-btn:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .partner-logo {
+            height: 40px;
+            margin: 0 15px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .partner-logo:hover {
+            opacity: 1;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .trending-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+        
+        .social-icon:hover {
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0;
+            }
+            
+            .search-input {
+                width: 60%;
+            }
+            
+            .feature-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: var(--primary-color);">
+                <i class="fas fa-gift me-2"></i>GiftGenius
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gift-ideas">Gift Ideas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">Find the Perfect Gift with AI!</h1>
+                    <p class="lead mb-5">Get personalized gift recommendations based on interests, occasions, and regional trends.</p>
+                    
+                    <div class="search-box d-flex justify-content-center mx-auto">
+                        <input type="text" class="search-input" placeholder="E.g., Gift for mom's birthday under ₹2000">
+                        <button class="search-btn">Get Gift Ideas</button>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <span class="me-3">Popular:</span>
+                        <a href="#" class="text-white me-2">#Anniversary</a>
+                        <a href="#" class="text-white me-2">#Birthday</a>
+                        <a href="#" class="text-white">#Diwali</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How It Works</h2>
+                <p class="text-muted">Our AI-powered gifting assistant makes gift-giving effortless</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h4>Tell Us About Them</h4>
+                        <p class="text-muted">Share details about the recipient - age, interests, relationship, and budget.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>AI Analyzes Options</h4>
+                        <p class="text-muted">Our algorithm considers trends, regional preferences, and personality traits.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h4>Get Perfect Suggestions</h4>
+                        <p class="text-muted">Receive curated gift ideas with direct purchase links from top retailers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Suggestions -->
+    <section id="gift-ideas" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">AI-Generated Gift Suggestions</h2>
+                <p class="text-muted">Personalized recommendations based on your preferences</p>
+            </div>
+            
+            <div class="row">
+                <!-- Gift Card 1 -->
+                <div class="col-md-4">
+                    <div class="gift-card">
+                        <div class="position-relative">
+                            <img src="https://m.media-amazon.com/images/I/61YiZkP5JKL._SL1500_.jpg" alt="Smartwatch" class="gift-img">
+                            <span class="trending-badge">Trending</span>
+                        </div>
+                        <div class="p-3">
+                            <h5>Noise ColorFit Pro 4</h5>
+                            <p class="text-muted">Smartwatch with 1.78" AMOLED display, Bluetooth calling</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="gift-price">₹2,499</span>
+                                <a href="https://www.amazon.in/dp/B0C7J4D5K1/?tag=giftgenius-21" class="buy-btn" target="_blank">Buy Now</a>
+                            </div>
+                            <small class="text-muted">Available on Amazon</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gift Card 2 -->
+                <div class="col-md-4">
+                    <div class="gift-card">
+                        <img src="https://m.media-amazon.com/images/I/81Sdk02bg+L._SL1500_.jpg" alt="Book" class="gift-img">
+                        <div class="p-3">
+                            <h5>Atomic Habits</h5>
+                            <p class="text-muted">The #1 New York Times bestseller by James Clear</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="gift-price">₹482</span>
+                                <a href="https://www.amazon.in/dp/1847941834/?tag=giftgenius-21" class="buy-btn" target="_blank">Buy Now</a>
+                            </div>
+                            <small class="text-muted">Available on Amazon</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gift Card 3 -->
+                <div class="col-md-4">
+                    <div class="gift-card">
+                        <img src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23102040/2023/3/29/e5c3b8e6-5b2e-4b1e-9e5f-0b9f1b3b3b3b1679569081236-1.jpg" alt="Perfume" class="gift-img">
+                        <div class="p-3">
+                            <h5>Davidoff Cool Water</h5>
+                            <p class="text-muted">Men's Eau de Toilette, 125ml</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="gift-price">₹2,450</span>
+                                <a href="https://www.myntra.com/perfumes/davidoff/davidoff-cool-water-eau-de-toilette-125ml/23102040/buy?utm_source=giftgenius" class="buy-btn" target="_blank">Buy Now</a>
+                            </div>
+                            <small class="text-muted">Available on Myntra</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gift Card 4 -->
+                <div class="col-md-4">
+                    <div class="gift-card">
+                        <img src="https://m.media-amazon.com/images/I/71W4R6s2A6L._SL1500_.jpg" alt="Echo Dot" class="gift-img">
+                        <div class="p-3">
+                            <h5>Amazon Echo Dot</h5>
+                            <p class="text-muted">5th Gen Smart speaker with Alexa (Black)</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="gift-price">₹4,499</span>
+                                <a href="https://www.amazon.in/dp/B09B8W5FW8/?tag=giftgenius-21" class="buy-btn" target="_blank">Buy Now</a>
+                            </div>
+                            <small class="text-muted">Available on Amazon</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gift Card 5 -->
+                <div class="col-md-4">
+                    <div class="gift-card">
+                        <div class="position-relative">
+                            <img src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/1376577/2016/9/14/11473913985090-Roadster-Men-Black-Solid-Round-Neck-T-shirt-4501473913984963-1.jpg" alt="T-Shirt" class="gift-img">
+                        </div>
+                        <div class="p-3">
+                            <h5>Roadster T-Shirt</h5>
+                            <p class="text-muted">Men's Black Solid Round Neck T-Shirt</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="gift-price">₹399</span>
+                                <a href="https://www.myntra.com/tshirts/roadster/roadster-men-black-solid-round-neck-t-shirt/1376577/buy?utm_source=giftgenius" class="buy-btn" target="_blank">Buy Now</a>
+                            </div>
+                            <small class="text-muted">Available on Myntra</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gift Card 6 -->
+                <div class="col-md-4">
+                    <div class="gift-card">
+                        <img src="https://m.media-amazon.com/images/I/61nzPMNY8zL._SL1500_.jpg" alt="Chocolates" class="gift-img">
+                        <div class="p-3">
+                            <h5>Ferrero Rocher</h5>
+                            <p class="text-muted">Premium Chocolates, 30 Pieces (300g)</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="gift-price">₹695</span>
+                                <a href="https://www.amazon.in/dp/B0084DWD4G/?tag=giftgenius-21" class="buy-btn" target="_blank">Buy Now</a>
+                            </div>
+                            <small class="text-muted">Available on Amazon</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-primary">Load More Suggestions</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Now -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Trending This Season</h2>
+                <p class="text-muted">Popular gifts people are loving right now</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="text-center">
+                        <img src="https://m.media-amazon.com/images/I/61YiZkP5JKL._SL1500_.jpg" class="img-fluid rounded-circle mb-3" style="height: 120px; width: 120px; object-fit: cover;">
+                        <h6>Smartwatches</h6>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="text-center">
+                        <img src="https://m.media-amazon.com/images/I/71W4R6s2A6L._SL1500_.jpg" class="img-fluid rounded-circle mb-3" style="height: 120px; width: 120px; object-fit: cover;">
+                        <h6>Smart Speakers</h6>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="text-center">
+                        <img src="https://m.media-amazon.com/images/I/61nzPMNY8zL._SL1500_.jpg" class="img-fluid rounded-circle mb-3" style="height: 120px; width: 120px; object-fit: cover;">
+                        <h6>Premium Chocolates</h6>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="text-center">
+                        <img src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/23102040/2023/3/29/e5c3b8e6-5b2e-4b1e-9e5f-0b9f1b3b3b3b1679569081236-1.jpg" class="img-fluid rounded-circle mb-3" style="height: 120px; width: 120px; object-fit: cover;">
+                        <h6>Perfumes</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners -->
+    <section class="py-4">
+        <div class="container">
+            <div class="text-center mb-4">
+                <p class="text-muted mb-1">WE PARTNER WITH</p>
+            </div>
+            
+            <div class="d-flex flex-wrap justify-content-center align-items-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="partner-logo me-4 mb-3" style="height: 30px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Myntra_logo.png" class="partner-logo me-4 mb-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Flipkart_logo.png" class="partner-logo me-4 mb-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Etsy_logo.png" class="partner-logo me-4 mb-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Amazon_Pay_logo.svg" class="partner-logo me-4 mb-3">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">What People Say</h2>
+                <p>Don't just take our word for it</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Priya Sharma</h5>
+                                <small class="text-muted">Mumbai</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"This AI tool saved me so much time! Found the perfect anniversary gift for my husband in minutes."</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Rahul Patel</h5>
+                                <small class="text-muted">Bangalore</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"I never know what to get my mom, but the AI suggestions were spot on. She loved the personalized jewelry!"</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Ananya Gupta</h5>
+                                <small class="text-muted">Delhi</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">"The regional insights helped me find traditional Diwali gifts that were perfect for my international clients."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4">Ready to Find the Perfect Gift?</h2>
+                    <p class="lead mb-5">Let our AI-powered assistant help you discover gifts that will truly delight your loved ones.</p>
+                    <button class="btn btn-primary btn-lg px-5 py-3">Try It Now - It's Free!</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-white mb-4">
+                        <i class="fas fa-gift me-2"></i>GiftGenius
+                    </h5>
+                    <p>AI-powered gifting assistant that helps you find the perfect present for every occasion.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#">Home</a>
+                        <a href="#how-it-works">How It Works</a>
+                        <a href="#gift-ideas">Gift Ideas</a>
+                        <a href="#testimonials">Testimonials</a>
+                        <a href="#">Blog</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Categories</h5>
+                    <div class="footer-links">
+                        <a href="#">Birthday Gifts</a>
+                        <a href="#">Anniversary Gifts</a>
+                        <a href="#">Festival Gifts</a>
+                        <a href="#">Corporate Gifts</a>
+                        <a href="#">Personalized Gifts</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Contact Us</h5>
+                    <div class="footer-links">
+                        <a href="#"><i class="fas fa-envelope me-2"></i>hello@giftgenius.com</a>
+                        <a href="#"><i class="fas fa-phone me-2"></i>+91 9876543210</a>
+                        <a href="#"><i class="fas fa-map-marker-alt me-2"></i>Bangalore, India</a>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-secondary">
+            
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <p class="mb-0">&copy; 2023 GiftGenius. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3">Privacy Policy</a>
+                    <a href="#" class="text-white me-3">Terms of Service</a>
+                    <a href="#" class="text-white">Affiliate Disclosure</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple search functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if(searchTerm.trim() !== '') {
+                alert('Searching for: ' + searchTerm + '\nIn a real implementation, this would call the AI API and return personalized gift suggestions.');
+                // Here you would typically make an AJAX call to your backend
+                // which would then call the AI API and return the suggestions
+            } else {
+                alert('Please enter some search terms');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
